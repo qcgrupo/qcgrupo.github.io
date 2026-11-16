@@ -179,6 +179,35 @@
     .pegatina { animation: none; }
     .boton, .proyecto, .proyecto .cara { transition: none; }
   }
+
+  /* Ajustes específicos para móviles */
+  @media (max-width: 600px) {
+    .wrap { width: min(100% - 2rem, 1200px); }
+    .cabecera .wrap { gap: .75rem; }
+    .cabecera img { height: 2.15rem; max-width: 46vw; }
+    .nav { gap: .65rem; }
+    .nav .nav-cta { font-size: 1rem; padding: .35rem .65rem; white-space: nowrap; }
+    .portada .wrap { gap: 1.75rem; }
+    .logo-pegatina { width: min(100%, 360px); padding: .75rem; }
+    .portada p.lead { margin-top: 1.35rem; }
+    .botones { gap: .75rem; }
+    .boton { font-size: 1.25rem; }
+    .monton { width: 100%; max-width: 440px; }
+    .pegatina { font-size: clamp(1.15rem, 8.5cqw, 2.8rem); }
+    .tarjeta .cuerpo { padding: 1.5rem 1rem; }
+    .tarjeta ul { font-size: clamp(1.25rem, 6vw, 1.55rem); }
+    .proyecto { max-width: 100%; font-size: clamp(1.65rem, 8vw, 2.5rem); white-space: normal; }
+    .proyecto-mas a { overflow-wrap: anywhere; }
+    .contacto .titulo { font-size: clamp(2.25rem, 11vw, 3.4rem); }
+    .pie .wrap { align-items: flex-start; }
+  }
+  @media (max-width: 360px) {
+    .cabecera img { height: 1.9rem; }
+    .nav .nav-cta { font-size: .9rem; }
+    .titulo { font-size: clamp(1.8rem, 9vw, 2.5rem); }
+    .proyecto { font-size: 1.55rem; }
+  }
+
 </style>
 </head>
 <body>
