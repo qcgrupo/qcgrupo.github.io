@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Proyectos | Qué Cachondeo Grupo</title>
+<meta name="description" content="Una selección de proyectos de Qué Cachondeo Grupo. Eventos, experiencias y formatos de entretenimiento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Jost:wght@400;500;600;700&family=Unbounded:wght@800;900&display=swap" rel="stylesheet">
+<style>
+:root{--black:#000;--white:#fff;--blue:#3a76ff;--yellow:#f2b52c;--pink:#ff8fe8;--orange:#ff8f2d;--green:#16906e;--font-display:"Unbounded","Arial Black",sans-serif;--font-cond:"Anton",Impact,sans-serif;--font-text:"Jost",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--blue);color:var(--black);font-family:var(--font-text);font-size:18px;line-height:1.5}a{color:inherit}.wrap{width:min(1120px,calc(100% - 40px));margin:auto}
+header{background:var(--black);color:var(--white);padding:16px 0}header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font:900 15px var(--font-display);text-decoration:none;letter-spacing:-.04em}.back{font-weight:700;text-decoration-thickness:2px;text-underline-offset:4px}
+main{padding:clamp(56px,9vw,112px) 0 90px}.eyebrow{font:22px var(--font-cond);text-transform:uppercase;letter-spacing:.05em}.title{font:900 clamp(42px,8vw,100px)/.98 var(--font-display);letter-spacing:-.07em;text-transform:uppercase;max-width:900px;margin:16px 0 22px}.intro{font-size:clamp(18px,2.3vw,23px);max-width:620px;font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:clamp(42px,7vw,76px)}
+.project{min-height:210px;border:2px solid var(--black);border-radius:8px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;background:var(--yellow);box-shadow:7px 7px 0 var(--black);transform:rotate(var(--rotation,0deg));transition:transform .2s ease,box-shadow .2s ease}
+.project:nth-child(2){background:var(--pink)}.project:nth-child(3){background:var(--green)}.project:nth-child(4){background:var(--orange)}.project:nth-child(5){background:#fff}
+.project:hover{transform:rotate(0) translateY(-4px);box-shadow:10px 11px 0 var(--black)}
+.number{font:20px var(--font-cond);opacity:.75}.name{font:clamp(28px,4.5vw,52px)/1 var(--font-cond);text-transform:uppercase;overflow-wrap:anywhere}
+footer{background:var(--black);color:var(--white);padding:24px 0;font-size:15px}footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media(max-width:650px){.grid{grid-template-columns:1fr;gap:18px}.project{min-height:170px;padding:22px}.title{font-size:clamp(42px,13vw,72px)}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="brand" href="index.html" aria-label="Qué Cachondeo Grupo, inicio">QUÉ CACHONDEO GRUPO</a><a class="back" href="index.html">← Volver a la home</a></div></header>
+<main><div class="wrap">
+<p class="eyebrow">Ideas que se convierten en planes</p>
+<h1 class="title">Todos los proyectos.<br>Todo el cachondeo.</h1>
+<p class="intro">Una selección de cosas que ya hemos puesto en marcha. Y las que vendrán.</p>
+<div class="grid">
+<article class="project" style="--rotation:-1deg"><span class="number">01 / EVENTOS</span><h2 class="name">Drag Brunch Madrid</h2></article>
+<article class="project" style="--rotation:1deg"><span class="number">02 / EVENTOS</span><h2 class="name">Bingo Party</h2></article>
+<article class="project" style="--rotation:-1deg"><span class="number">03 / PROYECTOS</span><h2 class="name">Killah Madrid</h2></article>
+<article class="project" style="--rotation:1deg"><span class="number">04 / PROYECTOS</span><h2 class="name">Las Pilardos</h2></article>
+<article class="project" style="--rotation:-1deg"><span class="number">05 / EVENTOS</span><h2 class="name">Copeo Love Out Loud</h2></article>
+</div>
+</div></main>
+<footer><div class="wrap"><span>© 2026 Qué Cachondeo Grupo. Madrid.</span><a href="https://www.instagram.com/quecachondeogrupo/" target="_blank" rel="noopener">@quecachondeogrupo</a></div></footer>
+</body>
+</html>
