@@ -384,6 +384,26 @@
     .proyecto { font-size: 1.55rem; }
   }
 
+
+  /* ---------- Alineación centrada de toda la mainpage ---------- */
+  .portada, .marcas, .proyectos, .contacto { text-align: center; }
+  .portada .botones { justify-content: center; }
+  .marcas .titulo, .marcas .intro,
+  .proyectos .titulo, .proyectos .nota,
+  .contacto .titulo, .contacto .lado p {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  .marcas .tarjeta .desc { text-align: center; }
+  .lista-proyectos { justify-content: center; }
+  .proyectos .nota { max-width: 32rem; }
+  .contacto .wrap { grid-template-columns: 1fr; justify-items: center; }
+  .contacto .lado { display: flex; flex-direction: column; align-items: center; }
+  .contacto .boton { align-self: center; }
+  .pie .wrap { justify-content: center; text-align: center; }
+  .pie p { text-align: center; }
+
 </style>
 </head>
 <body>
