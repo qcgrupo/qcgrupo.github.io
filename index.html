@@ -183,52 +183,83 @@
   }
 
 
-  /* ---------- Movimiento por capas al hacer scroll ---------- */
-  html.scroll-effects .portada,
-  html.scroll-effects .banda,
-  html.scroll-effects .marcas,
-  html.scroll-effects .proyectos,
-  html.scroll-effects .contacto {
-    clip-path: inset(0 0 100% 0);
-    transition: clip-path 1.25s cubic-bezier(.2,.75,.2,1);
+  /* ---------- Máscara de pantalla y movimiento ligado al scroll ---------- */
+  @supports (animation-timeline: view()) {
+    .portada .logo-pegatina,
+    .portada .lead,
+    .portada .botones,
+    .monton,
+    .marcas .titulo,
+    .marcas .intro,
+    .tarjeta,
+    .proyectos .titulo,
+    .proyecto,
+    .proyectos .nota,
+    .contacto .titulo,
+    .contacto .lado {
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    .portada .logo-pegatina,
+    .marcas .titulo,
+    .proyectos .titulo,
+    .contacto .titulo {
+      animation-name: mascara-vertical;
+    }
+    .portada .lead,
+    .marcas .intro,
+    .proyectos .nota,
+    .contacto .lado {
+      animation-name: aparecer-en-ventana;
+    }
+    .portada .botones,
+    .tarjeta,
+    .proyecto {
+      animation-name: capa-flotante;
+    }
+    .tarjeta:nth-child(2),
+    .proyecto:nth-child(even) { animation-delay: -0.12s; }
+    .tarjeta:nth-child(3),
+    .proyecto:nth-child(3n) { animation-delay: -0.22s; }
+
+    .banda { overflow: hidden; }
+    .banda img {
+      animation: banda-mascara linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    @keyframes mascara-vertical {
+      0% { clip-path: inset(0 0 100% 0); opacity: .35; transform: translateY(8vh); }
+      18%, 78% { clip-path: inset(0); opacity: 1; transform: translateY(0); }
+      100% { clip-path: inset(100% 0 0 0); opacity: .25; transform: translateY(-7vh); }
+    }
+    @keyframes aparecer-en-ventana {
+      0% { opacity: 0; transform: translate3d(0,12vh,0); }
+      20%, 78% { opacity: 1; transform: translate3d(0,0,0); }
+      100% { opacity: 0; transform: translate3d(0,-12vh,0); }
+    }
+    @keyframes capa-flotante {
+      0% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translate3d(0,13vh,0) rotate(var(--scroll-tilt, -2deg)) scale(.94); }
+      22%, 76% { clip-path: inset(0); opacity: 1; transform: translate3d(0,0,0) rotate(var(--r, 0deg)) scale(1); }
+      100% { clip-path: inset(100% 0 0 0); opacity: 0; transform: translate3d(0,-12vh,0) rotate(var(--scroll-tilt, 2deg)) scale(.96); }
+    }
+    @keyframes banda-mascara {
+      0% { clip-path: inset(0 50%); transform: scale(1.12); }
+      25%, 75% { clip-path: inset(0); transform: scale(1); }
+      100% { clip-path: inset(0 0 0 50%); transform: scale(1.12); }
+    }
   }
-  html.scroll-effects .portada.is-inview,
-  html.scroll-effects .banda.is-inview,
-  html.scroll-effects .marcas.is-inview,
-  html.scroll-effects .proyectos.is-inview,
-  html.scroll-effects .contacto.is-inview {
-    clip-path: inset(0 0 0 0);
-  }
-  html.scroll-effects .scroll-piece {
-    opacity: 0;
-    transform: translate3d(0,64px,0) rotate(var(--scroll-tilt,0deg)) scale(.96);
-    transition: opacity .8s ease, transform .9s cubic-bezier(.2,.8,.2,1);
-    transition-delay: var(--scroll-delay,0ms);
-  }
-  html.scroll-effects .scroll-piece.is-inview {
-    opacity: 1;
-    transform: translate3d(0,0,0) rotate(0) scale(1);
-  }
-  html.scroll-effects .tarjetas .tarjeta:nth-child(1) { --scroll-tilt:-3deg; }
-  html.scroll-effects .tarjetas .tarjeta:nth-child(2) { --scroll-delay:180ms; --scroll-tilt:2deg; }
-  html.scroll-effects .tarjetas .tarjeta:nth-child(3) { --scroll-delay:360ms; --scroll-tilt:-2deg; }
-  html.scroll-effects .lista-proyectos .proyecto:nth-child(2) { --scroll-delay:70ms; }
-  html.scroll-effects .lista-proyectos .proyecto:nth-child(3) { --scroll-delay:140ms; }
-  html.scroll-effects .lista-proyectos .proyecto:nth-child(4) { --scroll-delay:210ms; }
-  html.scroll-effects .lista-proyectos .proyecto:nth-child(5) { --scroll-delay:280ms; }
-  html.scroll-effects .lista-proyectos .proyecto:nth-child(6) { --scroll-delay:350ms; }
-  .banda { position:relative; }
-  .banda img { transform:scale(1.025); transition:transform 1.4s cubic-bezier(.2,.7,.2,1); }
-  .banda.is-inview img { transform:scale(1); }
 
   @media (prefers-reduced-motion: reduce) {
-    html.scroll-effects .portada,
-    html.scroll-effects .banda,
-    html.scroll-effects .marcas,
-    html.scroll-effects .proyectos,
-    html.scroll-effects .contacto { clip-path:none; transition:none; }
-    html.scroll-effects .scroll-piece { opacity:1; transform:none; transition:none; }
-    .banda img { transform:none; transition:none; }
+    .portada .logo-pegatina, .portada .lead, .portada .botones, .monton,
+    .marcas .titulo, .marcas .intro, .tarjeta, .proyectos .titulo,
+    .proyecto, .proyectos .nota, .contacto .titulo, .contacto .lado,
+    .banda img { animation: none !important; clip-path: none !important; transform: none !important; opacity: 1 !important; }
   }
 
   /* Ajustes específicos para móviles */
@@ -413,39 +444,7 @@
   })();
 </script>
 
-<script>
-  // Revelado por capas: cada bloque entra en escena al avanzar el scroll.
-  (function () {
-    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var sections = document.querySelectorAll('.portada, .banda, .marcas, .proyectos, .contacto');
-    var pieces = document.querySelectorAll(
-      '.portada .logo-pegatina, .portada .lead, .portada .botones, ' +
-      '.marcas .titulo, .marcas .intro, .marcas .tarjeta, ' +
-      '.proyectos .titulo, .proyectos .proyecto, .proyectos .nota, ' +
-      '.contacto .titulo, .contacto .lado'
-    );
 
-    if (reduceMotion || !('IntersectionObserver' in window)) return;
-    document.documentElement.classList.add('scroll-effects');
-
-    sections.forEach(function (section) { section.classList.add('scroll-layer'); });
-    pieces.forEach(function (piece) { piece.classList.add('scroll-piece'); });
-
-    var reveal = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-inview');
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0, rootMargin: '0px' });
-
-    sections.forEach(function (section, index) {
-      if (index === 0) section.classList.add('is-inview');
-      else reveal.observe(section);
-    });
-    pieces.forEach(function (piece) { reveal.observe(piece); });
-  })();
-</script>
 
 </body>
 </html>
