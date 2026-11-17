@@ -142,7 +142,7 @@
   /* ---------- Proyectos ---------- */
   .proyectos { background: var(--negro); color: var(--blanco); height: 300vh; min-height: 300vh; padding: 0; overflow: clip; position: relative; }
   .proyectos-stage { position: sticky; top: 0; height: 100svh; min-height: 620px; display: flex; align-items: center; overflow: hidden; }
-  .proyectos .titulo { max-width: 14ch; opacity: 0; translate: 0 45px; }
+  .proyectos .titulo { max-width: 14ch; margin-inline: auto; text-align: center; opacity: 0; translate: 0 45px; }
   .lista-proyectos { margin-top: clamp(2rem, 4vw, 3.5rem); display: flex; flex-wrap: wrap; gap: 1.1rem 1.4rem; align-items: center; }
   .proyecto {
     display: inline-flex; align-items: center; gap: .6rem;
@@ -606,7 +606,7 @@
         var entrada = clamp((pr - (.12 + i * .095)) / .16);
         item.style.opacity = String(entrada);
         item.style.translate = '0 ' + ((1 - entrada) * 85) + 'px';
-        item.style.rotate = ((1 - entrada) * (i % 2 ? 5 : -5)) + 'deg';
+        item.style.rotate = 'calc(var(--r) + ' + ((1 - entrada) * (i % 2 ? 3 : -3)) + 'deg)';
       });
       var notaP = clamp((pr - .72) / .16);
       proyectosNota.style.opacity = String(notaP * .9);
