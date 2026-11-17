@@ -514,7 +514,7 @@
       mensaje.style.transform = 'translateY(' + (-mensajeOut * 65) + 'px) scale(' + (1 - mensajeOut * .04) + ')';
 
       var ruedaP = clamp((p - .18) / .62);
-      rueda.style.transform = 'rotateY(' + (-ruedaP * 540) + 'deg) rotateX(' + (Math.sin(ruedaP * Math.PI * 2) * 9) + 'deg)';
+      rueda.style.transform = 'rotateY(' + (-ruedaP * 360) + 'deg) rotateX(' + (Math.sin(ruedaP * Math.PI * 2) * 9) + 'deg)';
       tags.forEach(function (tag, i) {
         var inicio = .2 + i * .078;
         var local = clamp((p - inicio) / .13);
