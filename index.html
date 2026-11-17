@@ -531,15 +531,19 @@
       tags.forEach(function (tag, i) {
         var inicio = .2 + i * .078;
         var visible = clamp((p - inicio) / .13);
-        tag.style.opacity = String(visible);
-        tag.style.clipPath = 'none';
-        tag.style.translate = '0 0';
-      });
 
-      // Cuando todos los tags ya están completos, salen juntos hacia arriba,
-      // como una lluvia inversa, dejando espacio para el smile y los botones.
-      var salidaTags = clamp((p - .8) / .2);
-      ruedaMarco.style.transform = 'translateY(' + (-salidaTags * 125) + 'vh)';
+        // Cada tag inicia la subida en un momento distinto y recorre
+        // una distancia diferente para crear un movimiento escalonado.
+        var inicioSalida = .79 + i * .012;
+        var duracionSalida = .14 + (i % 3) * .025;
+        var salida = clamp((p - inicioSalida) / duracionSalida);
+        var recorrido = 105 + i * 11;
+
+        tag.style.opacity = String(visible * (1 - salida));
+        tag.style.clipPath = 'none';
+        tag.style.translate = '0 ' + (-salida * recorrido) + 'vh';
+      });
+      ruedaMarco.style.transform = 'none';
 
       var botonesP = clamp((p - .78) / .17);
       acciones.style.opacity = String(botonesP);
