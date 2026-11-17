@@ -238,6 +238,14 @@
     pointer-events: none; transform: translateX(-50%);
   }
   .portada-acciones.visible { pointer-events: auto; }
+  .portada-smile {
+    position: absolute; z-index: 3; left: 50%; top: 43%;
+    width: clamp(82px, 11vw, 142px); aspect-ratio: 1;
+    opacity: 0; pointer-events: none; translate: -50% -50%;
+    display: grid; place-items: center;
+  }
+  .portada-smile svg { display: block; width: 100%; height: 100%; animation: giro-smile 2.8s linear infinite; }
+  @keyframes giro-smile { to { transform: rotate(360deg); } }
   .portada-indicacion {
     position: absolute; bottom: 2.2rem; left: 50%; translate: -50% 0;
     font-family: var(--f-cond); font-size: .9rem; letter-spacing: .12em;
@@ -289,7 +297,7 @@
   @media (prefers-reduced-motion: reduce) {
     .portada, .marcas { height: auto; min-height: 0; }
     .portada-stage, .marcas-stage { position: relative; height: auto; min-height: 0; padding: 4rem 1rem; }
-    .portada-mensaje, .rueda-servicios .pegatina, .portada-acciones,
+    .portada-mensaje, .rueda-servicios .pegatina, .portada-acciones, .portada-smile,
     .marcas .titulo, .marcas .intro, .marcas .tarjeta {
       opacity: 1 !important; translate: none !important; clip-path: none !important;
       position: relative; transform: none !important; rotate: none !important;
@@ -298,6 +306,8 @@
     .rueda-servicios-interior { display: flex; flex-wrap: wrap; gap: .5rem; width: 100%; height: auto; transform: none !important; }
     .rueda-servicios .pegatina { position: relative; left: auto; top: auto; }
     .portada-acciones { position: relative; left: auto; bottom: auto; translate: none; transform: none; }
+    .portada-smile { position: relative; left: auto; top: auto; translate: none; opacity: 1 !important; margin: 2rem auto; }
+    .portada-smile svg { animation: none; }
     .portada-indicacion { display: none; }
   }
 
@@ -409,6 +419,7 @@
           <span class="pegatina" style="--i:6;--c:var(--naranja)">Management</span>
         </div>
       </div>
+      <div class="portada-smile" aria-hidden="true"><svg viewBox="0 0 100 100"><use href="#cara"/></svg></div>
       <div class="portada-acciones">
         <a class="boton amarillo" href="#marcas">Ver qué hacemos</a>
         <a class="boton rosa" href="#contacto">Hablemos</a>
@@ -495,6 +506,7 @@
     var rueda = portada.querySelector('.rueda-servicios-interior');
     var tags = Array.prototype.slice.call(portada.querySelectorAll('.rueda-servicios .pegatina'));
     var acciones = portada.querySelector('.portada-acciones');
+    var smile = portada.querySelector('.portada-smile');
     var indicacion = portada.querySelector('.portada-indicacion');
     var titulo = marcas.querySelector('.titulo');
     var intro = marcas.querySelector('.intro');
@@ -529,6 +541,7 @@
       acciones.style.opacity = String(botonesP);
       acciones.style.translate = '0 ' + ((1 - botonesP) * 35) + 'px';
       acciones.classList.toggle('visible', botonesP > .75);
+      smile.style.opacity = String(botonesP);
       indicacion.style.opacity = String(1 - clamp(p / .16));
 
       var m = progreso(marcas);
