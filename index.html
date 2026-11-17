@@ -398,6 +398,113 @@
   }
 
 
+  /* En móvil, la portada y las secciones se leen como una página normal. */
+  @media (max-width: 600px) {
+    .portada, .marcas, .proyectos {
+      height: auto !important;
+      min-height: 0 !important;
+      overflow: visible;
+    }
+    .portada { padding: 0; }
+    .portada-stage {
+      position: relative;
+      top: auto;
+      height: auto;
+      min-height: 0;
+      padding: 5.5rem 1rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 2rem;
+      overflow: visible;
+      perspective: none;
+    }
+    .portada-mensaje, .rueda-servicios, .portada-smile, .portada-acciones {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      max-width: 100%;
+      opacity: 1 !important;
+      translate: none !important;
+      transform: none !important;
+      clip-path: none !important;
+    }
+    .portada-mensaje { padding: 0; }
+    .rueda-servicios {
+      height: auto;
+      max-height: none;
+      margin: 0 auto;
+      overflow: visible;
+      perspective: none;
+    }
+    .rueda-servicios-interior {
+      width: 100%;
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: .65rem;
+      transform: none !important;
+      transform-style: flat;
+    }
+    .rueda-servicios .pegatina {
+      position: relative;
+      inset: auto;
+      left: auto;
+      top: auto !important;
+      max-width: 100%;
+      white-space: normal;
+      overflow-wrap: normal;
+      font-size: clamp(1rem, 4.2vw, 1.2rem);
+      padding: .35em .6em;
+      opacity: 1 !important;
+      translate: none !important;
+      transform: none !important;
+      clip-path: none !important;
+      rotate: none !important;
+    }
+    .portada-smile {
+      left: auto;
+      top: auto;
+      margin: 0 auto;
+      width: 76px;
+      flex: 0 0 auto;
+    }
+    .portada-smile svg { animation: none; }
+    .portada-acciones {
+      left: auto;
+      bottom: auto;
+      display: flex;
+      justify-content: center;
+      gap: .75rem;
+      pointer-events: auto;
+    }
+    .portada-indicacion { display: none; }
+
+    .marcas-stage, .proyectos-stage {
+      position: relative;
+      top: auto;
+      height: auto;
+      min-height: 0;
+      padding: 4rem 1rem;
+      overflow: visible;
+    }
+    .marcas .titulo, .marcas .intro, .marcas .tarjeta,
+    .proyectos .titulo, .proyectos .proyecto, .proyectos .nota {
+      position: relative;
+      opacity: 1 !important;
+      translate: none !important;
+      transform: none !important;
+      rotate: none !important;
+      clip-path: none !important;
+    }
+    .proyectos { padding-block: 0; }
+    .proyectos-stage { display: block; }
+    .proyectos .proyecto { rotate: var(--r); }
+    .proyectos .proyecto-mas { rotate: var(--r); }
+  }
+
   /* ---------- Alineación centrada de toda la mainpage ---------- */
   .portada, .marcas, .proyectos, .contacto { text-align: center; }
   .portada .botones { justify-content: center; }
@@ -570,6 +677,8 @@
       var r = el.getBoundingClientRect();
       return clamp(-r.top / Math.max(1, r.height - window.innerHeight));
     }
+    // En móvil se desactiva el control por progreso: CSS presenta todo en flujo normal.
+    if (window.matchMedia('(max-width: 600px)').matches) return;
     // Los enlaces a Marcas deben aterrizar dentro de la secuencia,
     // cuando el título, el texto y las tres tarjetas ya están visibles.
     document.querySelectorAll('a[href="#marcas-scroll"]').forEach(function (enlace) {
