@@ -17,6 +17,7 @@ main{padding:clamp(56px,9vw,112px) 0 90px}.eyebrow{font:22px var(--font-cond);te
 .project{min-height:210px;border:2px solid var(--black);border-radius:8px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;background:var(--yellow);box-shadow:7px 7px 0 var(--black);transform:rotate(var(--rotation,0deg));transition:transform .2s ease,box-shadow .2s ease}
 .project:nth-child(2){background:var(--pink)}.project:nth-child(3){background:var(--green)}.project:nth-child(4){background:var(--orange)}.project:nth-child(5){background:#fff}
 .project:hover{transform:rotate(0) translateY(-4px);box-shadow:10px 11px 0 var(--black)}
+.project{color:inherit;text-decoration:none;cursor:pointer}.project:focus-visible{outline:4px solid var(--white);outline-offset:5px}.project .number:last-child{font-size:16px;letter-spacing:.06em}
 .number{font:20px var(--font-cond);opacity:.75}.name{font:clamp(28px,4.5vw,52px)/1 var(--font-cond);text-transform:uppercase;overflow-wrap:anywhere}
 footer{background:var(--black);color:var(--white);padding:24px 0;font-size:15px}footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 @media(max-width:650px){.grid{grid-template-columns:1fr;gap:18px}.project{min-height:170px;padding:22px}.title{font-size:clamp(42px,13vw,72px)}}
@@ -74,11 +75,11 @@ footer{background:var(--black);color:var(--white);padding:24px 0;font-size:15px}
 <h1 class="title">Todos los proyectos.<br>Todo el cachondeo.</h1>
 <p class="intro">Una selección de cosas que ya hemos puesto en marcha. Y las que vendrán.</p>
 <div class="grid">
-<article class="project" style="--rotation:-1deg"><span class="number">01 / EVENTOS</span><h2 class="name">Drag Brunch Madrid</h2></article>
-<article class="project" style="--rotation:1deg"><span class="number">02 / EVENTOS</span><h2 class="name">Bingo Party</h2></article>
-<article class="project" style="--rotation:-1deg"><span class="number">03 / PROYECTOS</span><h2 class="name">Killah Madrid</h2></article>
-<article class="project" style="--rotation:1deg"><span class="number">04 / PROYECTOS</span><h2 class="name">Las Pilardos</h2></article>
-<article class="project" style="--rotation:-1deg"><span class="number">05 / EVENTOS</span><h2 class="name">Copeo Love Out Loud</h2></article>
+<a class="project" href="drag-brunch-madrid.html" style="--rotation:-1deg" aria-label="Descubrir Drag Brunch Madrid"><span class="number">01 / EVENTOS</span><h2 class="name">Drag Brunch Madrid</h2><span class="number">DESCUBRIR ↗</span></a>
+<a class="project" href="bingo-party.html" style="--rotation:1deg" aria-label="Descubrir Bingo Party"><span class="number">02 / EVENTOS</span><h2 class="name">Bingo Party</h2><span class="number">DESCUBRIR ↗</span></a>
+<a class="project" href="killah-madrid.html" style="--rotation:-1deg" aria-label="Descubrir Killah Madrid"><span class="number">03 / PROYECTOS</span><h2 class="name">Killah Madrid</h2><span class="number">DESCUBRIR ↗</span></a>
+<a class="project" href="las-pilardos.html" style="--rotation:1deg" aria-label="Descubrir Las Pilardos"><span class="number">04 / PROYECTOS</span><h2 class="name">Las Pilardos</h2><span class="number">DESCUBRIR ↗</span></a>
+<a class="project" href="copeo-love-out-loud.html" style="--rotation:-1deg" aria-label="Descubrir Copeo Love Out Loud"><span class="number">05 / EVENTOS</span><h2 class="name">Copeo Love Out Loud</h2><span class="number">DESCUBRIR ↗</span></a>
 </div>
 </div></main>
 <footer><div class="wrap"><span>© 2026 Qué Cachondeo Grupo. Madrid.</span><a href="https://www.instagram.com/quecachondeogrupo/" target="_blank" rel="noopener">@quecachondeogrupo</a></div></footer>
