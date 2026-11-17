@@ -183,83 +183,27 @@
   }
 
 
-  /* ---------- Máscara de pantalla y movimiento ligado al scroll ---------- */
-  @supports (animation-timeline: view()) {
-    .portada .logo-pegatina,
-    .portada .lead,
-    .portada .botones,
-    .monton,
-    .marcas .titulo,
-    .marcas .intro,
-    .tarjeta,
-    .proyectos .titulo,
-    .proyecto,
-    .proyectos .nota,
-    .contacto .titulo,
-    .contacto .lado {
-      animation-duration: 1s;
-      animation-timing-function: linear;
-      animation-fill-mode: both;
-      animation-timeline: view();
-      animation-range: entry 0% exit 100%;
-    }
-
-    .portada .logo-pegatina,
-    .marcas .titulo,
-    .proyectos .titulo,
-    .contacto .titulo {
-      animation-name: mascara-vertical;
-    }
-    .portada .lead,
-    .marcas .intro,
-    .proyectos .nota,
-    .contacto .lado {
-      animation-name: aparecer-en-ventana;
-    }
-    .portada .botones,
-    .tarjeta,
-    .proyecto {
-      animation-name: capa-flotante;
-    }
-    .tarjeta:nth-child(2),
-    .proyecto:nth-child(even) { animation-delay: -0.12s; }
-    .tarjeta:nth-child(3),
-    .proyecto:nth-child(3n) { animation-delay: -0.22s; }
-
-    .banda { overflow: hidden; }
-    .banda img {
-      animation: banda-mascara linear both;
-      animation-timeline: view();
-      animation-range: entry 0% exit 100%;
-    }
-
-    @keyframes mascara-vertical {
-      0% { clip-path: inset(0 0 100% 0); opacity: .35; transform: translateY(8vh); }
-      18%, 78% { clip-path: inset(0); opacity: 1; transform: translateY(0); }
-      100% { clip-path: inset(100% 0 0 0); opacity: .25; transform: translateY(-7vh); }
-    }
-    @keyframes aparecer-en-ventana {
-      0% { opacity: 0; transform: translate3d(0,12vh,0); }
-      20%, 78% { opacity: 1; transform: translate3d(0,0,0); }
-      100% { opacity: 0; transform: translate3d(0,-12vh,0); }
-    }
-    @keyframes capa-flotante {
-      0% { clip-path: inset(0 0 100% 0); opacity: 0; transform: translate3d(0,13vh,0) rotate(var(--scroll-tilt, -2deg)) scale(.94); }
-      22%, 76% { clip-path: inset(0); opacity: 1; transform: translate3d(0,0,0) rotate(var(--r, 0deg)) scale(1); }
-      100% { clip-path: inset(100% 0 0 0); opacity: 0; transform: translate3d(0,-12vh,0) rotate(var(--scroll-tilt, 2deg)) scale(.96); }
-    }
-    @keyframes banda-mascara {
-      0% { clip-path: inset(0 50%); transform: scale(1.12); }
-      25%, 75% { clip-path: inset(0); transform: scale(1); }
-      100% { clip-path: inset(0 0 0 50%); transform: scale(1.12); }
-    }
+  /* ---------- Máscara de pantalla: progreso calculado directamente con el scroll ---------- */
+  .scroll-mascara,
+  .scroll-capa,
+  .banda img {
+    will-change: clip-path, opacity, translate;
   }
+  .scroll-mascara,
+  .scroll-capa {
+    clip-path: inset(0);
+    opacity: 1;
+  }
+  .banda { overflow: hidden; }
+  .banda img { clip-path: inset(0); }
 
   @media (prefers-reduced-motion: reduce) {
-    .portada .logo-pegatina, .portada .lead, .portada .botones, .monton,
-    .marcas .titulo, .marcas .intro, .tarjeta, .proyectos .titulo,
-    .proyecto, .proyectos .nota, .contacto .titulo, .contacto .lado,
-    .banda img { animation: none !important; clip-path: none !important; transform: none !important; opacity: 1 !important; }
+    .scroll-mascara, .scroll-capa, .banda img {
+      clip-path: none !important;
+      opacity: 1 !important;
+      translate: none !important;
+      will-change: auto;
+    }
   }
 
   /* Ajustes específicos para móviles */
@@ -441,6 +385,68 @@
       p.addEventListener('pointerup', suelta);
       p.addEventListener('pointercancel', suelta);
     });
+  })();
+
+  
+  // La ventana funciona como máscara: el progreso depende de la posición real al hacer scroll.
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var mascaras = document.querySelectorAll(
+      '.portada .logo-pegatina, .marcas .titulo, .proyectos .titulo, .contacto .titulo'
+    );
+    var capas = document.querySelectorAll(
+      '.portada .lead, .portada .botones, .marcas .intro, .tarjeta, .proyecto, .proyectos .nota, .contacto .lado'
+    );
+    var bandas = document.querySelectorAll('.banda img');
+    var elementos = [];
+
+    mascaras.forEach(function (el) { el.classList.add('scroll-mascara'); elementos.push({el:el,tipo:'vertical'}); });
+    capas.forEach(function (el) { el.classList.add('scroll-capa'); elementos.push({el:el,tipo:'capa'}); });
+    bandas.forEach(function (el) { elementos.push({el:el,tipo:'banda'}); });
+
+    var pendiente = false;
+    function limitar(n, min, max) { return Math.max(min, Math.min(max, n)); }
+    function actualizar() {
+      pendiente = false;
+      var alto = window.innerHeight || document.documentElement.clientHeight;
+
+      elementos.forEach(function (item) {
+        var rect = item.el.getBoundingClientRect();
+        var centro = (rect.top + rect.height / 2) / alto;
+        var p = limitar((1.12 - centro) / 1.24, 0, 1);
+        var entrada = limitar(p / 0.2, 0, 1);
+        var salida = limitar((1 - p) / 0.2, 0, 1);
+        var presencia = Math.min(entrada, salida);
+        var opacidad = presencia * (item.tipo === 'vertical' ? 0.82 : 1);
+
+        if (item.tipo === 'vertical') {
+          var recorte = p < 0.2 ? (1 - entrada) * 100 : (p > 0.8 ? (1 - salida) * 100 : 0);
+          item.el.style.clipPath = 'inset(' + recorte + '% 0 ' + (p < 0.2 ? 0 : (p > 0.8 ? 0 : 0)) + '% 0)';
+          item.el.style.opacity = String(opacidad);
+          item.el.style.translate = '0 ' + ((1 - presencia) * (p < 0.5 ? 34 : -34)) + 'px';
+        } else if (item.tipo === 'banda') {
+          var lateral = (1 - presencia) * 48;
+          item.el.style.clipPath = 'inset(0 ' + lateral + '%)';
+          item.el.style.opacity = String(Math.max(0.18, presencia));
+          item.el.style.translate = '0 0';
+        } else {
+          var recorteCapa = p < 0.2 ? (1 - entrada) * 100 : (p > 0.8 ? (1 - salida) * 100 : 0);
+          item.el.style.clipPath = 'inset(' + recorteCapa + '% 0 ' + (p > 0.8 ? recorteCapa : 0) + '% 0)';
+          item.el.style.opacity = String(opacidad);
+          item.el.style.translate = '0 ' + ((1 - presencia) * (p < 0.5 ? 58 : -58)) + 'px';
+        }
+      });
+    }
+    function solicitar() {
+      if (!pendiente) {
+        pendiente = true;
+        window.requestAnimationFrame(actualizar);
+      }
+    }
+    window.addEventListener('scroll', solicitar, {passive:true});
+    window.addEventListener('resize', solicitar);
+    actualizar();
   })();
 </script>
 
