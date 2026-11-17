@@ -363,6 +363,19 @@
     .monton { width: 100%; max-width: 440px; }
     .monton { max-width: 480px; }
     .pegatina { left: 50%; font-size: clamp(1.45rem, 11.5cqw, 3.3rem); padding: .16em .36em .12em; transform: translate(calc(-50% + var(--dx)), var(--dy)) rotate(var(--r)); }
+    /* Rueda de servicios: mantener todas las etiquetas dentro del ancho del móvil. */
+    .rueda-servicios { width: 100%; overflow: hidden; }
+    .rueda-servicios .pegatina {
+      max-width: 60vw;
+      white-space: normal;
+      text-align: center;
+      overflow-wrap: anywhere;
+      font-size: clamp(.95rem, 4.2vw, 1.2rem);
+      padding: .18em .35em .14em;
+      transform: translate(-50%, -50%) rotateY(var(--angulo))
+        translateZ(12vw) translateY(var(--desfase-y, 0px))
+        rotateY(calc(var(--angulo) * -1));
+    }
     .pegatina:nth-child(1) { top: 2%; }
     .pegatina:nth-child(2) { top: 15%; }
     .pegatina:nth-child(3) { top: 28%; }
