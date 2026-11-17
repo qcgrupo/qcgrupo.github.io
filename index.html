@@ -504,6 +504,7 @@
 
     var mensaje = portada.querySelector('.portada-mensaje');
     var rueda = portada.querySelector('.rueda-servicios-interior');
+    var ruedaMarco = portada.querySelector('.rueda-servicios');
     var tags = Array.prototype.slice.call(portada.querySelectorAll('.rueda-servicios .pegatina'));
     var acciones = portada.querySelector('.portada-acciones');
     var smile = portada.querySelector('.portada-smile');
@@ -529,13 +530,16 @@
       rueda.style.transform = 'rotateY(' + (-ruedaP * 360) + 'deg) rotateX(' + (Math.sin(ruedaP * Math.PI * 2) * 9) + 'deg)';
       tags.forEach(function (tag, i) {
         var inicio = .2 + i * .078;
-        var local = clamp((p - inicio) / .13);
-        var fin = clamp((.92 - p) / .12);
-        var visible = Math.min(local, fin);
+        var visible = clamp((p - inicio) / .13);
         tag.style.opacity = String(visible);
-        tag.style.clipPath = 'inset(0 ' + ((1 - visible) * 100) + '% 0 0)';
-        tag.style.translate = '0 ' + ((1 - visible) * 32) + 'px';
+        tag.style.clipPath = 'none';
+        tag.style.translate = '0 0';
       });
+
+      // Cuando todos los tags ya están completos, salen juntos hacia arriba,
+      // como una lluvia inversa, dejando espacio para el smile y los botones.
+      var salidaTags = clamp((p - .8) / .2);
+      ruedaMarco.style.transform = 'translateY(' + (-salidaTags * 125) + 'vh)';
 
       var botonesP = clamp((p - .78) / .17);
       acciones.style.opacity = String(botonesP);
