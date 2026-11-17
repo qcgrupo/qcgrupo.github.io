@@ -436,9 +436,9 @@
         entry.target.classList.add('is-inview');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -8% 0px' });
+    }, { threshold: 0, rootMargin: '0px' });
 
-    sections.forEach(function (section) { reveal.observe(section); });
+    sections.forEach(function (section, index) {\n      if (index === 0) section.classList.add('is-inview');\n      else reveal.observe(section);\n    });
     pieces.forEach(function (piece) { reveal.observe(piece); });
   })();
 </script>
