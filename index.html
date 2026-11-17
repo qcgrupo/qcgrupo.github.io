@@ -199,9 +199,9 @@
     transition: none; will-change: transform, opacity;
   }
   .rueda-servicios {
-    position: absolute; z-index: 2; width: min(88vw, 900px); height: min(56vw, 520px);
-    max-height: 58svh; display: grid; place-items: center;
-    perspective: 1000px; pointer-events: none;
+    position: absolute; z-index: 2; width: min(96vw, 1100px); height: min(64vw, 600px);
+    max-height: 66svh; display: grid; place-items: center;
+    perspective: 1200px; pointer-events: none;
   }
   .rueda-servicios-interior {
     position: relative; width: 1px; height: 1px; transform-style: preserve-3d;
@@ -209,19 +209,19 @@
   }
   .rueda-servicios .pegatina {
     position: absolute; left: 50%; top: 50%; margin: 0;
-    font-size: clamp(1.45rem, 4vw, 3.8rem); padding: .16em .34em;
-    transform: translate(-50%,-50%) rotateY(var(--angulo)) translateZ(clamp(150px, 24vw, 310px)) rotateY(calc(var(--angulo) * -1));
+    font-size: clamp(1.25rem, 3.35vw, 3.15rem); padding: .14em .3em;
+    transform: translate(-50%,-50%) rotateY(var(--angulo)) translateZ(clamp(230px, 36vw, 460px)) translateY(var(--desfase-y, 0px)) rotateY(calc(var(--angulo) * -1));
     transform-origin: center; opacity: 0; clip-path: inset(0 100% 0 0);
     white-space: nowrap; animation: none; transition: none;
     border: 2px solid var(--negro); box-shadow: 5px 5px 0 var(--negro);
   }
-  .rueda-servicios .pegatina:nth-child(1) { --angulo: 0deg; }
-  .rueda-servicios .pegatina:nth-child(2) { --angulo: 51.43deg; }
-  .rueda-servicios .pegatina:nth-child(3) { --angulo: 102.86deg; }
-  .rueda-servicios .pegatina:nth-child(4) { --angulo: 154.29deg; }
-  .rueda-servicios .pegatina:nth-child(5) { --angulo: 205.72deg; }
-  .rueda-servicios .pegatina:nth-child(6) { --angulo: 257.15deg; }
-  .rueda-servicios .pegatina:nth-child(7) { --angulo: 308.58deg; }
+  .rueda-servicios .pegatina:nth-child(1) { --angulo: 0deg; --desfase-y: 0px; }
+  .rueda-servicios .pegatina:nth-child(2) { --angulo: 51.43deg; --desfase-y: -78px; }
+  .rueda-servicios .pegatina:nth-child(3) { --angulo: 102.86deg; --desfase-y: 72px; }
+  .rueda-servicios .pegatina:nth-child(4) { --angulo: 154.29deg; --desfase-y: -92px; }
+  .rueda-servicios .pegatina:nth-child(5) { --angulo: 205.72deg; --desfase-y: 88px; }
+  .rueda-servicios .pegatina:nth-child(6) { --angulo: 257.15deg; --desfase-y: -66px; }
+  .rueda-servicios .pegatina:nth-child(7) { --angulo: 308.58deg; --desfase-y: 58px; }
   .portada-acciones {
     position: absolute; z-index: 4; left: 50%; bottom: 13%;
     display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem;
@@ -253,8 +253,14 @@
     .portada { height: 430vh; min-height: 430vh; }
     .portada-stage { min-height: 560px; }
     .portada-logo { width: min(88vw, 620px); }
-    .rueda-servicios { width: 100vw; height: 55svh; }
-    .rueda-servicios .pegatina { font-size: clamp(1.2rem, 5vw, 2.6rem); }
+    .rueda-servicios { width: 100vw; height: 60svh; }
+    .rueda-servicios .pegatina { font-size: clamp(1.05rem, 4.2vw, 2.05rem); }
+    .rueda-servicios .pegatina:nth-child(2) { --desfase-y: -58px; }
+    .rueda-servicios .pegatina:nth-child(3) { --desfase-y: 54px; }
+    .rueda-servicios .pegatina:nth-child(4) { --desfase-y: -66px; }
+    .rueda-servicios .pegatina:nth-child(5) { --desfase-y: 62px; }
+    .rueda-servicios .pegatina:nth-child(6) { --desfase-y: -48px; }
+    .rueda-servicios .pegatina:nth-child(7) { --desfase-y: 42px; }
     .portada-acciones { bottom: 15%; }
     .marcas { height: 390vh; min-height: 390vh; }
     .marcas-stage { min-height: 620px; align-items: flex-start; padding-top: 9vh; }
